@@ -22,7 +22,7 @@ task clean(type: Delete) {
 }
 
 // bintray upload command
-// ./gradlew :appcontext:clean :appcontext:install :appcontext:bintrayUpload
+// ./gradlew :backstack:clean :backstack:install :backstack:bintrayUpload
 
 // maven local command
-// ./gradlew :appcontext:clean :appcontext:uploadArchives
+// ./gradlew :backstack:clean :backstack:uploadArchives
