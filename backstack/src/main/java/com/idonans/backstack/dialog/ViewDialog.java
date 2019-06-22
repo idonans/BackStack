@@ -1,10 +1,11 @@
 package com.idonans.backstack.dialog;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.AnimatorRes;
 import androidx.annotation.LayoutRes;
@@ -24,8 +25,8 @@ public class ViewDialog extends ViewBackLayer {
     private final ViewGroup mContentParentView;
 
     private View mContentView;
-    private Animator mContentViewShowAnimator;
-    private Animator mContentViewHideAnimator;
+    private Animation mContentViewShowAnimation;
+    private Animation mContentViewHideAnimation;
 
     private ViewDialog(Activity activity, View decorView, ViewGroup parentView, ViewGroup contentParentView) {
         super(WindowBackStackDispatcher.from(activity.getWindow()), decorView, parentView);
@@ -59,34 +60,34 @@ public class ViewDialog extends ViewBackLayer {
         return mContentView;
     }
 
-    private void setContentViewAnimator(Animator showAnimator, Animator hideAnimator) {
-        mContentViewShowAnimator = showAnimator;
-        mContentViewHideAnimator = hideAnimator;
+    private void setContentViewAnimator(Animation showAnimation, Animation hideAnimation) {
+        mContentViewShowAnimation = showAnimation;
+        mContentViewHideAnimation = hideAnimation;
 
-        if (mContentViewHideAnimator != null) {
-            mContentViewHideAnimator.addListener(new Animator.AnimatorListener() {
+        if (mContentViewHideAnimation != null) {
+            mContentViewHideAnimation.setAnimationListener(new Animation.AnimationListener() {
 
                 private boolean mCanceled;
 
                 @Override
-                public void onAnimationStart(Animator animation) {
+                public void onAnimationStart(Animation animation) {
                     mCanceled = false;
                 }
 
                 @Override
-                public void onAnimationEnd(Animator animation) {
+                public void onAnimationEnd(Animation animation) {
                     if (mCanceled) {
-                        Timber.v("ViewDialog content view hide animator end with cancel");
+                        Timber.v("ViewDialog content view hide anim end with cancel");
                         return;
                     }
 
                     if (isShown()) {
-                        Timber.e("ViewDialog is shown after content view hide animator end");
+                        Timber.e("ViewDialog is shown after content view hide anim end");
                         return;
                     }
 
                     if (mContentView == null) {
-                        Timber.e("ViewDialog content view is null after content view hide animator end");
+                        Timber.e("ViewDialog content view is null after content view hide anim end");
                         return;
                     }
 
@@ -94,12 +95,7 @@ public class ViewDialog extends ViewBackLayer {
                 }
 
                 @Override
-                public void onAnimationCancel(Animator animation) {
-                    mCanceled = true;
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
+                public void onAnimationRepeat(Animation animation) {
                 }
             });
         }
@@ -113,14 +109,13 @@ public class ViewDialog extends ViewBackLayer {
         }
 
         clearContentViewAnimator();
-        if (mContentView == null || mContentViewShowAnimator == null) {
+        if (mContentView == null || mContentViewShowAnimation == null) {
             super.show();
             return;
         }
 
         super.show();
-        mContentViewShowAnimator.setTarget(mContentView);
-        mContentViewShowAnimator.start();
+        mContentView.startAnimation(mContentViewShowAnimation);
     }
 
     @Override
@@ -131,22 +126,22 @@ public class ViewDialog extends ViewBackLayer {
         }
 
         clearContentViewAnimator();
-        if (mContentView == null || mContentViewHideAnimator == null) {
+        if (mContentView == null || mContentViewHideAnimation == null) {
             super.hide(cancel);
             return;
         }
 
         super.hideInternal(cancel, false);
-        mContentViewHideAnimator.setTarget(mContentView);
-        mContentViewHideAnimator.start();
+        mContentView.startAnimation(mContentViewHideAnimation);
     }
 
     private void clearContentViewAnimator() {
-        if (mContentViewShowAnimator != null) {
-            mContentViewShowAnimator.cancel();
+        mContentView.clearAnimation();
+        if (mContentViewShowAnimation != null) {
+            mContentViewShowAnimation.reset();
         }
-        if (mContentViewHideAnimator != null) {
-            mContentViewHideAnimator.cancel();
+        if (mContentViewHideAnimation != null) {
+            mContentViewHideAnimation.reset();
         }
     }
 
@@ -168,8 +163,8 @@ public class ViewDialog extends ViewBackLayer {
         private OnBackPressedListener mOnBackPressedListener;
 
         private int mContentViewLayoutRes;
-        private int mContentViewShowAnimatorRes;
-        private int mContentViewHideAnimatorRes;
+        private int mContentViewShowAnimationRes;
+        private int mContentViewHideAnimationRes;
 
         public Builder(Activity activity) {
             mActivity = activity;
@@ -225,13 +220,13 @@ public class ViewDialog extends ViewBackLayer {
             return this;
         }
 
-        public Builder setContentViewShowAnimator(@AnimatorRes int animatorRes) {
-            mContentViewShowAnimatorRes = animatorRes;
+        public Builder setContentViewShowAnimation(@AnimatorRes int animationRes) {
+            mContentViewShowAnimationRes = animationRes;
             return this;
         }
 
-        public Builder setContentViewHideAnimator(@AnimatorRes int animatorRes) {
-            mContentViewHideAnimatorRes = animatorRes;
+        public Builder setContentViewHideAnimation(@AnimatorRes int animationRes) {
+            mContentViewHideAnimationRes = animationRes;
             return this;
         }
 
@@ -240,9 +235,10 @@ public class ViewDialog extends ViewBackLayer {
             return this;
         }
 
-        public Builder defaultAnimator() {
-            // setContentViewShowAnimator(R.animator._dialog_default_in);
-            // setContentViewHideAnimator(R.animator._dialog_default_out);
+        @SuppressLint("ResourceType")
+        public Builder defaultAnimation() {
+            setContentViewShowAnimation(R.anim.backstack_slide_in_from_bottom);
+            setContentViewHideAnimation(R.anim.backstack_slide_out_to_bottom);
             return this;
         }
 
@@ -271,8 +267,8 @@ public class ViewDialog extends ViewBackLayer {
             viewDialog.setOnRemoveFromParentListener(mOnRemoveFromParentListener);
             viewDialog.setRequestSystemInsets(mRequestSystemInsets);
             viewDialog.setContentViewAnimator(
-                    mContentViewShowAnimatorRes > 0 ? AnimatorInflater.loadAnimator(mActivity, mContentViewShowAnimatorRes) : null,
-                    mContentViewHideAnimatorRes > 0 ? AnimatorInflater.loadAnimator(mActivity, mContentViewHideAnimatorRes) : null);
+                    mContentViewShowAnimationRes > 0 ? AnimationUtils.loadAnimation(mActivity, mContentViewShowAnimationRes) : null,
+                    mContentViewHideAnimationRes > 0 ? AnimationUtils.loadAnimation(mActivity, mContentViewHideAnimationRes) : null);
             return viewDialog;
         }
 

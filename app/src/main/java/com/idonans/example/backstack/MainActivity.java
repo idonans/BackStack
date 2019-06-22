@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
                         .setContentView(R.layout.dialog_view)
                         .setParentView(findViewById(android.R.id.content))
                         .dimBackground(true)
+                        .defaultAnimation()
                         .create()
                         .show()
         );
