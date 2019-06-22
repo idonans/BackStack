@@ -3,8 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:background="#FFf2f2f2"
+    android:background="#FFffffff"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#FF999999" />
 
     <TextView
         android:layout_width="match_parent"
@@ -16,9 +21,10 @@
         android:singleLine="true"
         android:text="item 1" />
 
-    <Space
+    <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp" />
+        android:layout_height="0.5dp"
+        android:background="#FF999999" />
 
     <TextView
         android:layout_width="match_parent"
@@ -30,9 +36,10 @@
         android:singleLine="true"
         android:text="item 2" />
 
-    <Space
+    <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp" />
+        android:layout_height="0.5dp"
+        android:background="#FF999999" />
 
     <TextView
         android:layout_width="match_parent"

@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         ViewUtil.onClick(view, v ->
                 new ViewDialog.Builder(MainActivity.this)
                         .setContentView(R.layout.dialog_view)
+                        .setParentView(findViewById(android.R.id.content))
                         .dimBackground(true)
                         .create()
                         .show()
