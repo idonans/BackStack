@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
+    android:layout_gravity="top"
     android:background="#FFffffff"
     android:orientation="vertical">
 
@@ -50,4 +50,9 @@
         android:padding="10dp"
         android:singleLine="true"
         android:text="item 3" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#FF999999" />
 </LinearLayout>

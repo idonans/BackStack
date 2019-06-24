@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import androidx.annotation.AnimatorRes;
+import androidx.annotation.AnimRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
@@ -220,12 +220,12 @@ public class ViewDialog extends ViewBackLayer {
             return this;
         }
 
-        public Builder setContentViewShowAnimation(@AnimatorRes int animationRes) {
+        public Builder setContentViewShowAnimation(@AnimRes int animationRes) {
             mContentViewShowAnimationRes = animationRes;
             return this;
         }
 
-        public Builder setContentViewHideAnimation(@AnimatorRes int animationRes) {
+        public Builder setContentViewHideAnimation(@AnimRes int animationRes) {
             mContentViewHideAnimationRes = animationRes;
             return this;
         }

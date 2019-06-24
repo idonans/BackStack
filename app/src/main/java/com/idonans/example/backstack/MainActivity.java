@@ -19,9 +19,10 @@ public class MainActivity extends AppCompatActivity {
         ViewUtil.onClick(view, v ->
                 new ViewDialog.Builder(MainActivity.this)
                         .setContentView(R.layout.dialog_view)
-                        .setParentView(findViewById(android.R.id.content))
+                        .setParentView(findViewById(R.id.content_parent_view))
                         .dimBackground(true)
-                        .defaultAnimation()
+                        .setContentViewShowAnimation(R.anim.backstack_slide_in_from_top)
+                        .setContentViewHideAnimation(R.anim.backstack_slide_out_to_top)
                         .create()
                         .show()
         );
