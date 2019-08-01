@@ -32,6 +32,7 @@ dependencies {
     api rootProject.ext.bcfg.deps.guava
     api rootProject.ext.bcfg.deps.timber
     api rootProject.ext.bcfg.deps.rxbinding2
+    api rootProject.ext.bcfg.deps.idonans_lang
 }
 
 // apply from: ('bintray.gradle')

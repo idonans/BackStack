@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import com.google.common.base.Preconditions;
 import com.idonans.backstack.R;
 import com.idonans.backstack.ViewBackLayer;
-import com.idonans.backstack.ViewUtil;
 import com.idonans.backstack.WindowBackStackDispatcher;
+import com.idonans.lang.util.ViewUtil;
 
 import timber.log.Timber;
 
