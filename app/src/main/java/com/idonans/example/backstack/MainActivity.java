@@ -16,15 +16,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         View view = findViewById(R.id.btn_show_dialog);
-        ViewUtil.onClick(view, v ->
-                new ViewDialog.Builder(MainActivity.this)
-                        .setContentView(R.layout.dialog_view)
-                        .setParentView(findViewById(R.id.content_parent_view))
-                        .dimBackground(true)
-                        .setContentViewShowAnimation(R.anim.backstack_slide_in_from_top)
-                        .setContentViewHideAnimation(R.anim.backstack_slide_out_to_top)
-                        .create()
-                        .show()
+        ViewUtil.onClick(view, v -> {
+                    ViewDialog viewDialog =
+                            new ViewDialog.Builder(MainActivity.this)
+                                    .setContentView(R.layout.dialog_view)
+                                    .setParentView(findViewById(R.id.content_parent_view))
+                                    .dimBackground(true)
+                                    .setContentViewShowAnimation(R.anim.backstack_slide_in_from_top)
+                                    .setContentViewHideAnimation(R.anim.backstack_slide_out_to_top)
+                                    .create();
+                    ViewUtil.onClick(viewDialog.findViewById(R.id.menu_container), innerView -> viewDialog.hide(false));
+                    viewDialog.show();
+                }
         );
     }
 
