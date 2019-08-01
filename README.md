@@ -3,7 +3,7 @@
 
 ```groovy
 
-    implementation 'com.idonans.backstack:backstack:0.1.0'
+    implementation 'com.idonans.backstack:backstack:0.1.6'
 
 ```
 
