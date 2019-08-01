@@ -5,8 +5,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.idonans.backstack.ViewUtil;
 import com.idonans.backstack.dialog.ViewDialog;
+import com.idonans.lang.util.ViewUtil;
 
 public class MainActivity extends AppCompatActivity {
 
