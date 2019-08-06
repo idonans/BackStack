@@ -15,6 +15,7 @@ import com.google.common.base.Preconditions;
 import com.idonans.backstack.R;
 import com.idonans.backstack.ViewBackLayer;
 import com.idonans.backstack.WindowBackStackDispatcher;
+import com.idonans.lang.thread.Threads;
 import com.idonans.lang.util.ViewUtil;
 
 import timber.log.Timber;
@@ -91,7 +92,7 @@ public class ViewDialog extends ViewBackLayer {
                         return;
                     }
 
-                    detachViewFromParent();
+                    Threads.postUi(() -> detachViewFromParent());
                 }
 
                 @Override
@@ -162,8 +163,11 @@ public class ViewDialog extends ViewBackLayer {
 
         private OnBackPressedListener mOnBackPressedListener;
 
+        @LayoutRes
         private int mContentViewLayoutRes;
+        @AnimRes
         private int mContentViewShowAnimationRes;
+        @AnimRes
         private int mContentViewHideAnimationRes;
 
         public Builder(Activity activity) {
@@ -253,7 +257,7 @@ public class ViewDialog extends ViewBackLayer {
             Preconditions.checkArgument(contentParentView != null, "content parent view not found,\ndecor view layout res must define one ViewGroup with id R.id.content_parent");
 
             View contentView = null;
-            if (mContentViewLayoutRes > 0) {
+            if (mContentViewLayoutRes != 0) {
                 contentView = mActivity.getLayoutInflater().inflate(mContentViewLayoutRes, contentParentView, false);
             }
 
@@ -267,8 +271,8 @@ public class ViewDialog extends ViewBackLayer {
             viewDialog.setOnRemoveFromParentListener(mOnRemoveFromParentListener);
             viewDialog.setRequestSystemInsets(mRequestSystemInsets);
             viewDialog.setContentViewAnimator(
-                    mContentViewShowAnimationRes > 0 ? AnimationUtils.loadAnimation(mActivity, mContentViewShowAnimationRes) : null,
-                    mContentViewHideAnimationRes > 0 ? AnimationUtils.loadAnimation(mActivity, mContentViewHideAnimationRes) : null);
+                    mContentViewShowAnimationRes != 0 ? AnimationUtils.loadAnimation(mActivity, mContentViewShowAnimationRes) : null,
+                    mContentViewHideAnimationRes != 0 ? AnimationUtils.loadAnimation(mActivity, mContentViewHideAnimationRes) : null);
             return viewDialog;
         }
 
