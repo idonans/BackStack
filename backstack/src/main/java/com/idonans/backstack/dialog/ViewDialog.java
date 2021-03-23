@@ -12,13 +12,12 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
+import com.idonans.backstack.LibLog;
 import com.idonans.backstack.R;
 import com.idonans.backstack.ViewBackLayer;
 import com.idonans.backstack.WindowBackStackDispatcher;
-import com.idonans.lang.thread.Threads;
+import com.idonans.core.thread.Threads;
 import com.idonans.lang.util.ViewUtil;
-
-import timber.log.Timber;
 
 public class ViewDialog extends ViewBackLayer {
 
@@ -35,7 +34,7 @@ public class ViewDialog extends ViewBackLayer {
         mContentParentView = contentParentView;
 
         ViewUtil.onClick(decorView, v -> {
-            Timber.v("decor view onClick");
+            LibLog.v("decor view onClick");
             onBackPressed();
         });
     }
@@ -78,17 +77,17 @@ public class ViewDialog extends ViewBackLayer {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     if (mCanceled) {
-                        Timber.v("ViewDialog content view hide anim end with cancel");
+                        LibLog.v("ViewDialog content view hide anim end with cancel");
                         return;
                     }
 
                     if (isShown()) {
-                        Timber.e("ViewDialog is shown after content view hide anim end");
+                        LibLog.e("ViewDialog is shown after content view hide anim end");
                         return;
                     }
 
                     if (mContentView == null) {
-                        Timber.e("ViewDialog content view is null after content view hide anim end");
+                        LibLog.e("ViewDialog content view is null after content view hide anim end");
                         return;
                     }
 
@@ -105,7 +104,7 @@ public class ViewDialog extends ViewBackLayer {
     @Override
     public void show() {
         if (isShown()) {
-            Timber.e("already shown");
+            LibLog.e("already shown");
             return;
         }
 
@@ -122,7 +121,7 @@ public class ViewDialog extends ViewBackLayer {
     @Override
     public void hide(boolean cancel) {
         if (!isShown()) {
-            Timber.e("not shown");
+            LibLog.e("not shown");
             return;
         }
 
