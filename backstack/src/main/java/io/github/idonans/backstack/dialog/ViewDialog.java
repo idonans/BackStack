@@ -1,4 +1,4 @@
-package com.idonans.backstack.dialog;
+package io.github.idonans.backstack.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,12 +12,12 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
-import com.idonans.backstack.LibLog;
-import com.idonans.backstack.R;
-import com.idonans.backstack.ViewBackLayer;
-import com.idonans.backstack.WindowBackStackDispatcher;
-import com.idonans.core.thread.Threads;
-import com.idonans.lang.util.ViewUtil;
+import io.github.idonans.backstack.LibLog;
+import io.github.idonans.backstack.R;
+import io.github.idonans.backstack.ViewBackLayer;
+import io.github.idonans.backstack.WindowBackStackDispatcher;
+import io.github.idonans.core.thread.Threads;
+import io.github.idonans.lang.util.ViewUtil;
 
 public class ViewDialog extends ViewBackLayer {
 

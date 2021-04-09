@@ -1,4 +1,4 @@
-package com.idonans.backstack;
+package io.github.idonans.backstack;
 
 import android.view.View;
 import android.view.ViewGroup;

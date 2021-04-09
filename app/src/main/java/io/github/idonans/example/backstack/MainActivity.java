@@ -1,12 +1,12 @@
-package com.idonans.example.backstack;
+package io.github.idonans.example.backstack;
 
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.idonans.backstack.dialog.ViewDialog;
-import com.idonans.lang.util.ViewUtil;
+import io.github.idonans.backstack.dialog.ViewDialog;
+import io.github.idonans.lang.util.ViewUtil;
 
 public class MainActivity extends AppCompatActivity {
 

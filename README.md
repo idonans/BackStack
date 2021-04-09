@@ -5,7 +5,7 @@
 
 ```groovy
 
-    implementation 'com.idonans.backstack:backstack:$latestVersion'
+    implementation 'io.github.idonans.backstack:backstack:$latestVersion'
 
 ```
 
