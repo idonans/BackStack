@@ -75,7 +75,7 @@ public class ViewBackLayer implements BackStack.BackLayer {
 
     protected void showInternal(boolean attach) {
         if (mShown) {
-            LibLog.e("already shown");
+            BackStackLog.e("already shown");
             return;
         }
 
@@ -95,7 +95,7 @@ public class ViewBackLayer implements BackStack.BackLayer {
 
     protected void hideInternal(boolean cancel, boolean detach) {
         if (!mShown) {
-            LibLog.e("not shown");
+            BackStackLog.e("not shown");
             return;
         }
 
@@ -111,12 +111,12 @@ public class ViewBackLayer implements BackStack.BackLayer {
 
     protected void attachViewToParent() {
         if (mParentView == null) {
-            LibLog.e("parent view is null");
+            BackStackLog.e("parent view is null");
             return;
         }
 
         if (mDecorView.getParent() != null) {
-            LibLog.e("decor view's parent is not null %s", mDecorView.getParent());
+            BackStackLog.e("decor view's parent is not null %s", mDecorView.getParent());
             return;
         }
 
@@ -133,12 +133,12 @@ public class ViewBackLayer implements BackStack.BackLayer {
     protected void detachViewFromParent() {
         ViewParent parent = mDecorView.getParent();
         if (!(parent instanceof ViewGroup)) {
-            LibLog.e("decor view's parent is not instance of ViewGroup %s", parent);
+            BackStackLog.e("decor view's parent is not instance of ViewGroup %s", parent);
             return;
         }
 
         if (parent != mParentView) {
-            LibLog.e("decor view's parent changed to another, require:%s, found:%s", mParentView, parent);
+            BackStackLog.e("decor view's parent changed to another, require:%s, found:%s", mParentView, parent);
             return;
         }
 

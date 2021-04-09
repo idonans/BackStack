@@ -12,7 +12,8 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
-import io.github.idonans.backstack.LibLog;
+
+import io.github.idonans.backstack.BackStackLog;
 import io.github.idonans.backstack.R;
 import io.github.idonans.backstack.ViewBackLayer;
 import io.github.idonans.backstack.WindowBackStackDispatcher;
@@ -34,7 +35,7 @@ public class ViewDialog extends ViewBackLayer {
         mContentParentView = contentParentView;
 
         ViewUtil.onClick(decorView, v -> {
-            LibLog.v("decor view onClick");
+            BackStackLog.v("decor view onClick");
             onBackPressed();
         });
     }
@@ -77,17 +78,17 @@ public class ViewDialog extends ViewBackLayer {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     if (mCanceled) {
-                        LibLog.v("ViewDialog content view hide anim end with cancel");
+                        BackStackLog.v("ViewDialog content view hide anim end with cancel");
                         return;
                     }
 
                     if (isShown()) {
-                        LibLog.e("ViewDialog is shown after content view hide anim end");
+                        BackStackLog.e("ViewDialog is shown after content view hide anim end");
                         return;
                     }
 
                     if (mContentView == null) {
-                        LibLog.e("ViewDialog content view is null after content view hide anim end");
+                        BackStackLog.e("ViewDialog content view is null after content view hide anim end");
                         return;
                     }
 
@@ -104,7 +105,7 @@ public class ViewDialog extends ViewBackLayer {
     @Override
     public void show() {
         if (isShown()) {
-            LibLog.e("already shown");
+            BackStackLog.e("already shown");
             return;
         }
 
@@ -121,7 +122,7 @@ public class ViewDialog extends ViewBackLayer {
     @Override
     public void hide(boolean cancel) {
         if (!isShown()) {
-            LibLog.e("not shown");
+            BackStackLog.e("not shown");
             return;
         }
 
